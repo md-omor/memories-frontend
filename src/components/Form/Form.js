@@ -5,7 +5,6 @@ import { createPost, updatePost } from "../../actions/posts";
 
 const Form = ({ currentId, setcurrentId }) => {
   const [postData, setpostData] = useState({
-    creator: "",
     title: "",
     message: "",
     tags: "",
@@ -16,31 +15,46 @@ const Form = ({ currentId, setcurrentId }) => {
     currentId ? state.posts.find((p) => p._id === currentId) : null
   );
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   useEffect(() => {
     if (post) setpostData(post);
-  }, [currentId, post]);
+  }, [post]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (currentId) {
-      dispatch(updatePost(currentId, postData));
-      clear();
-    } else {
-      dispatch(createPost(postData));
-      clear();
-    }
-  };
   const clear = () => {
     setcurrentId(null);
     setpostData({
-      creator: "",
       title: "",
       message: "",
       tags: "",
       selectedFile: "",
     });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (currentId) {
+      dispatch(
+        updatePost(currentId, { ...postData, name: user?.result?.name })
+      );
+      clear();
+    } else {
+      dispatch(createPost({ ...postData, name: user?.result?.name }));
+
+      clear();
+    }
+  };
+
+  if (!user?.result?.name) {
+    return (
+      <div className="flex items-center justify-center  px-4 py-6">
+        <h1 className="text-center text-lg font-bold text-gray-50">
+          Please Sign In to create your own memories and like other's memories
+        </h1>
+      </div>
+    );
+  }
+
   return (
     <form action="" autoComplete="off" onSubmit={handleSubmit}>
       <div className="text-white font-bold text-center text-2xl from-accent-focus  font-mono">
@@ -50,7 +64,7 @@ const Form = ({ currentId, setcurrentId }) => {
         {/* <label class="label">
         <span class="label-text">Normal</span>
       </label> */}
-        <input
+        {/* <input
           type="text"
           placeholder="Creator"
           name="Creator"
@@ -59,7 +73,7 @@ const Form = ({ currentId, setcurrentId }) => {
           onChange={(e) =>
             setpostData({ ...postData, creator: e.target.value })
           }
-        />
+        /> */}
         <input
           type="text"
           placeholder="title"
