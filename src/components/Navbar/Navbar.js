@@ -65,7 +65,7 @@ const Navbar = () => {
       ) : (
         <div className="flex mr-24">
           <Link to="/auth">
-            <div className="btn  btn-primary btn-active hover:bg-primary ml-4 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
+            <div className="btn btn-primary btn-active hover:bg-primary ml-4 focus:outline-none focus:ring-2 ">
               Sign in
             </div>
           </Link>
