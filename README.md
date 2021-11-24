@@ -2,7 +2,7 @@
 
 ### This is a fullstack little blog app. You can create, read, edit, delete, like on here.
 
-## Live demo : [Photo Gallery App](https://photo-gallery-mdomor.vercel.app/)
+## Live demo : [Blog App](https://mdomor-memories.netlify.com/)
 
 ![multi step form](screenshot.png)
 
